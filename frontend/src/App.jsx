@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import Layout from './components/Layout';
 import Dashboard from './pages/Dashboard';
@@ -24,6 +24,8 @@ import LicensingPage from './pages/LicensingPage';
 import ComplianceAudit from './pages/ComplianceAudit';
 
 function App() {
+  const Router = import.meta.env.VITE_USE_HASH_ROUTER === 'true' ? HashRouter : BrowserRouter;
+
   return (
     <Router>
       <Toaster
