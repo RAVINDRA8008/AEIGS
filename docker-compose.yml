@@ -1,0 +1,28 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - GOOGLE_CLOUD_PROJECT=${GOOGLE_CLOUD_PROJECT}
+      - DATABASE_URL=sqlite:///./aegis.db
+      - UPLOAD_DIR=./uploads
+      - CHROMA_PERSIST_DIR=./chroma_db
+      - SIMILARITY_THRESHOLD=0.85
+    volumes:
+      - backend_uploads:/app/uploads
+      - backend_chroma:/app/chroma_db
+      - backend_db:/app
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+volumes:
+  backend_uploads:
+  backend_chroma:
+  backend_db:
